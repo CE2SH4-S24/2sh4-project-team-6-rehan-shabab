@@ -5,6 +5,8 @@
 #include "objPos.h"
 #include "objPosArrayList.h" 
 
+class GameMechs;
+
 class Player
 {
     // Construct the remaining declaration from the project manual.
@@ -17,18 +19,19 @@ class Player
         enum Dir {STOP, UP, DOWN, LEFT, RIGHT};  // This is the direction state (FSM)
 
         Player(GameMechs* thisGMRef);
-        ~Player();
-
-        void getPlayerPos(objPos &returnPos); // Upgrade this in iteration 3.
+        ~Player(); 
+        
+        objPosArrayList* getPlayerPos();
         void updatePlayerDir();
         void movePlayer();
-
+        int getSnakeLength() const;
+        bool collision();
+        
     private:
-        objPos playerPos;   // Upgrade this in iteration 3.       
-        enum Dir myDir;
-
-        // Need a reference to the Main Game Mechanisms
-        GameMechs* mainGameMechsRef;
+    objPosArrayList* playerPosList;
+    enum Dir myDir;
+    bool exitFlag;
+    GameMechs* mainGameMechsRef;
 };
 
 #endif

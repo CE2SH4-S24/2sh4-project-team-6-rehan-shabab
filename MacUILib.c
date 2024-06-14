@@ -5,6 +5,7 @@ print_ptr MacUILib_printf;
 #ifdef WINDOWS
 
 	#include <conio.h>
+	#include <windows.h>  // Include Windows.h for Sleep function
 	
 	void MacUILib_init(void)
 	{
@@ -19,7 +20,7 @@ print_ptr MacUILib_printf;
 
 	void MacUILib_Delay(int usec)
 	{
-		usleep(usec);
+		Sleep(usec / 1000);  // Convert microseconds to milliseconds for Sleep
 	}
 	
 	int MacUILib_hasChar(void)
@@ -46,7 +47,6 @@ print_ptr MacUILib_printf;
 	
 #endif
 
-	
 #ifdef POSIX
 
 	#include <ncurses.h>
@@ -78,7 +78,7 @@ print_ptr MacUILib_printf;
 		usleep(usec);
 	}
 
-		int MacUILib_hasChar()
+	int MacUILib_hasChar()
 	{
 		char ch = getch();
 		if(ch == ERR)

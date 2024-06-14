@@ -9,38 +9,37 @@
 
 using namespace std;
 
-
 class GameMechs
-{   
-    // GameMechs is the Game Mechanism class
-    // Construct the remaining declaration from the project manual.
+{
+private:
+    char input;
+    bool exitFlag;
+    bool loseFlag;
+    int score;
+    int boardSizeX;
+    int boardSizeY;
+    objPos foodPos;
 
-    // Only some sample members are included here
+public:
+    GameMechs();
+    GameMechs(int boardX, int boardY);
+    ~GameMechs();
 
-    // You will include more data members and member functions to complete your design.
+    bool getExitFlagStatus();
+    bool getLoseFlagStatus();
+    char getInput();
+    int getBoardSizeX();
+    int getBoardSizeY();
+    int getScore();
 
-    private:
-        char input;
-        bool exitFlag;
-        
-        int boardSizeX;
-        int boardSizeY;
+    void setExitTrue();
+    void setLoseFlag();
+    void setInput(char this_input);
+    void clearInput();
+    void incrementScore();
 
-    public:
-        GameMechs();
-        GameMechs(int boardX, int boardY);
-        
-        bool getExitFlagStatus();
-        void setExitTrue();
-
-        char getInput();
-        void setInput(char this_input);
-        void clearInput();
-
-        int getBoardSizeX();
-        int getBoardSizeY();
-      
-
+    void generateFood(objPosArrayList *blockOff);
+    void getFoodPos(objPos &returnFood);
 };
 
 #endif
