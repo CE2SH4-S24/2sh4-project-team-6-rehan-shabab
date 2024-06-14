@@ -2,18 +2,18 @@
 #define FOOD_H
 
 #include "GameMechs.h"
-#include "objPos.h"
 #include "objPosArrayList.h"
+#include "objPos.h"
 
-class Food
-{
+class Food {
 private:
-    objPos foodPos;
-    GameMechs* thisGMRef;
+    objPos foodPos; // Declare foodPos here
+    GameMechs* gameMechsRef;
 
 public:
     Food(GameMechs* thisGMRef);
     ~Food();
+
     void generateFood(objPosArrayList* playerPosList);
     void getFoodPos(objPos &returnPos);
 };
