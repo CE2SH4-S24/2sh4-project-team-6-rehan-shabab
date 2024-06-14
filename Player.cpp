@@ -54,11 +54,10 @@ void Player::updatePlayerDir()
         if (myDir != LEFT && myDir != RIGHT)
             myDir = RIGHT;
         break;
-    case ' ': // If space is pressed, set direction to STOP
+    case ' ':
         myDir = STOP;
         break;
     default:
-        // Handle other cases or do nothing for unrecognized input
         break;
     }
 }
@@ -66,6 +65,8 @@ void Player::updatePlayerDir()
 // Moves the player based on the current direction.
 void Player::movePlayer()
 {
+    if (playerPosList->getSize() == 0) return; // Safety check
+
     objPos currentHead;
     playerPosList->getHeadElement(currentHead);
 
@@ -95,20 +96,25 @@ void Player::movePlayer()
     default:
         break;
     }
-    // Update the player's position list, inserting the new head and removing the tail.
+
+    // Set the correct symbol for the snake head
+    currentHead.symbol = '@';
+
+    // Update the player's position list, inserting the new head
     playerPosList->insertHead(currentHead);
-    playerPosList->removeTail();
 }
 
 // Checks for self-collision by comparing the head position with the rest of the body.
 bool Player::collision()
 {
+    if (playerPosList->getSize() == 0) return false; // Safety check
+
     objPos head;
-    objPos tempBody;
     playerPosList->getHeadElement(head);
 
+    objPos tempBody;
     // Iterate through the player's body and check for collision with the head.
-    for (int i = 2; i < playerPosList->getSize(); i++)
+    for (int i = 1; i < playerPosList->getSize(); i++)
     {
         playerPosList->getElement(tempBody, i);
         if (tempBody.isPosEqual(&head))

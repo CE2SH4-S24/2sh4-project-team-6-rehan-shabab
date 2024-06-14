@@ -14,10 +14,6 @@ GameMechs* myGM;
 Player* player;
 Food* food;
 
-objPos myPos;
-
-bool exitFlag;
-
 void Initialize(void);
 void GetInput(void);
 void RunLogic(void);
@@ -29,7 +25,7 @@ int main(void)
 {
     Initialize();
 
-    while(!myGM->getExitFlagStatus())  
+    while (!myGM->getExitFlagStatus())
     {
         GetInput();
         RunLogic();
@@ -51,7 +47,6 @@ void Initialize(void)
     food = new Food(myGM);
 
     // Generate initial food
-    objPosArrayList tempPosList;
     food->generateFood(player->getPlayerPos());
 }
 
@@ -70,17 +65,27 @@ void RunLogic(void)
     player->updatePlayerDir();
     player->movePlayer();
 
-    playerBody->getHeadElement(tempBody);
-    if (tempBody.isPosEqual(&tempFoodPos))
+    if (playerBody->getSize() > 0)
     {
-        myGM->incrementScore();
-        playerBody->insertHead(tempFoodPos);  // Insert the food position as the new head
-        food->generateFood(playerBody);
+        playerBody->getHeadElement(tempBody);
+        if (tempBody.isPosEqual(&tempFoodPos))
+        {
+            // Food was collected, grow the snake
+            myGM->incrementScore();
+            food->generateFood(playerBody);
+        }
+        else
+        {
+            // Regular movement, remove the tail
+            playerBody->removeTail();
+        }
     }
 
+    // Check for self-collision
     if (player->collision())
     {
         myGM->setLoseFlag();
+        myGM->setExitTrue();
     }
 
     myGM->clearInput();
@@ -115,14 +120,12 @@ void DrawScreen(void)
                 }
             }
 
-            if (drawn) continue; // If player body is drawn, don't draw anything below
+            if (drawn) continue;
 
             if (y == 0 || y == myGM->getBoardSizeY() - 1 || x == 0 || x == myGM->getBoardSizeX() - 1)
             {
-                // Draw borders
                 MacUILib_printf("%c", '#');
             }
-
             else if (x == tempFoodPos.x && y == tempFoodPos.y)
             {
                 MacUILib_printf("%c", tempFoodPos.symbol);
