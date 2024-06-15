@@ -19,8 +19,8 @@ Student No.: [Insert your numerical 9-digit McMaster student number here]
 
 Group Member 2 Information:
 
-Name: [Insert your full name here in format: Last name, First name]
+Name: [Abbasi Rehan]
 
-MacID: [Insert your macID here]
+MacID: [abbasr9]
 
-Student No.: [Insert your numerical 9-digit McMaster student number here]
+Student No.: [400393904]
