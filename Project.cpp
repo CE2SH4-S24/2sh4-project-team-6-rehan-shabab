@@ -1,10 +1,10 @@
-#include <iostream> 
+#include <iostream>  
 #include "MacUILib.h"  
 #include "objPos.h"  
-#include "objPosArrayList.h" 
-#include "GameMechs.h"  
-#include "Player.h"  
-#include "Food.h"  
+#include "objPosArrayList.h"  
+#include "GameMechs.h"
+#include "Player.h"
+#include "Food.h"
 
 using namespace std; 
 
