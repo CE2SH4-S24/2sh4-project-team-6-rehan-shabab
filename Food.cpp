@@ -1,57 +1,64 @@
-#include <iostream>
 #include "Food.h"
-#include <cstdlib>
-#include <ctime>
+#include <cstdlib>  
+#include <ctime>    
 
-// Constructor for the Food class
-Food::Food(GameMechs* thisGMRef)
-{
-    srand(time(nullptr));
-    
-    // Initialize food position to the center of the board
-    int initialX = thisGMRef->getBoardSizeX() / 2;
-    int initialY = thisGMRef->getBoardSizeY() / 2;
-    foodPos.setObjPos(initialX, initialY, 'o');
+// Constructor for the Food class, initializing the food list and seeding the random number generator
+Food::Food(GameMechs* thisGMRef) {
+    gameMechsRef = thisGMRef;  // Store the reference to the GameMechs object
+    foodList = new objPosArrayList();  // Create a new objPosArrayList to store food items
+    srand(time(nullptr));  // Seed the random number generator with the current time
 }
 
-// Destructor for the Food class
-Food::~Food()
-{
-    // Destructor implementation (empty in this case)
+// Destructor for the Food class, cleaning up the dynamically allocated food list
+Food::~Food() {
+    delete foodList;  // Delete the objPosArrayList to free the allocated memory
 }
 
-// Function to generate a new food position, avoiding player overlap
-void Food::generateFood(objPosArrayList* playerPosList)
-{
-    srand(time(nullptr));
-    
-    bool playerOverlap;
+// Method to generate multiple food items on the game board, avoiding collision with the player
+void Food::generateFood(objPosArrayList* playerPosList) {
+    // Clear all previous food items from the food list
+    while (foodList->getSize() > 0) {
+        foodList->removeTail();  // Remove the last element in the food list
+    }
 
-    // Loop until a valid food position is found
-    do {
-        foodPos.x = (rand() % 20) + 1;
-        foodPos.y = (rand() % 10) + 1;
+    // Generate 5 food items
+    for (int i = 0; i < 5; ++i) {
+        objPos newFood;  // Temporary variable to store the new food position
+        bool playerOverlap;  // Flag to check if the new food position overlaps with the player
 
-        playerOverlap = false;
-        objPos playerPos;
+        // Find a new food position that does not overlap with the player
+        do {
+            // Generate a random position for the new food item within the game board boundaries
+            newFood.x = (rand() % (gameMechsRef->getBoardSizeX() - 2)) + 1;
+            newFood.y = (rand() % (gameMechsRef->getBoardSizeY() - 2)) + 1;
 
-        // Check for overlap with each player position
-        for (int i = 0; i < playerPosList->getSize(); ++i) {
-            playerPosList->getElement(playerPos, i);
+            playerOverlap = false;  // Reset the overlap flag
+            objPos playerPos;  // Temporary variable to store player positions
 
-            if (foodPos.isPosEqual(&playerPos)) {
-                playerOverlap = true;
-                break;
+            // Check the new food position against all player positions to ensure no overlap
+            for (int j = 0; j < playerPosList->getSize(); ++j) {
+                playerPosList->getElement(playerPos, j);  // Get the player position at index j
+                if (newFood.isPosEqual(&playerPos)) {  // Check if the new food position is equal to the player position
+                    playerOverlap = true;  // Set the overlap flag to true
+                    break;  // Exit the loop early if an overlap is found
+                }
             }
-        }
-    } while (playerOverlap);
+        } while (playerOverlap);  // Repeat until a non-overlapping position is found
 
-    // Set the symbol for the food position
-    foodPos.symbol = 'o';
+        // Set the symbol for the new food item ('S' for special, 'o' for regular)
+        newFood.symbol = (i == 0) ? 'S' : 'o';  // The first food item is special
+
+        // Add the new food item to the food list
+        foodList->insertTail(newFood);
+    }
 }
 
-// Function to get the current food position
-void Food::getFoodPos(objPos &returnPos)
-{
-    returnPos.setObjPos(foodPos.x, foodPos.y, foodPos.symbol);
+// Method to get the position of a food item by index
+void Food::getFoodPos(objPos &returnPos, int index) {
+    foodList->getElement(returnPos, index);  // Retrieve the food item at the specified index and store it in returnPos
+}
+
+// Method to get the count of food items currently in the food list
+int Food::getFoodCount() {
+    return foodList->getSize();  // Return the number of food items in the food list
 }

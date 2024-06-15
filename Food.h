@@ -1,21 +1,21 @@
 #ifndef FOOD_H
 #define FOOD_H
 
-#include "GameMechs.h"
 #include "objPosArrayList.h"
-#include "objPos.h"
+#include "GameMechs.h"
 
 class Food {
 private:
-    objPos foodPos; // Declare foodPos here
-    GameMechs* gameMechsRef;
+    objPosArrayList* foodList;  // List to store multiple food items
+    GameMechs* gameMechsRef;  // Reference to the GameMechs object
 
 public:
     Food(GameMechs* thisGMRef);
     ~Food();
 
     void generateFood(objPosArrayList* playerPosList);
-    void getFoodPos(objPos &returnPos);
+    void getFoodPos(objPos &returnPos, int index);
+    int getFoodCount();
 };
 
 #endif // FOOD_H

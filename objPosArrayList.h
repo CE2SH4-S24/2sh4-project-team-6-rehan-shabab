@@ -8,9 +8,9 @@
 class objPosArrayList
 {
     private:
-        objPos* aList;
-        int sizeList;
-        int sizeArray;
+        objPos* aList;  // Pointer to the array of objPos elements
+        int sizeList;  // Current number of elements in the list
+        int sizeArray;  // Maximum capacity of the array
 
     public:
         objPosArrayList();

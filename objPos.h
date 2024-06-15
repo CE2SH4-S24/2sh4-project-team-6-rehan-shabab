@@ -4,9 +4,9 @@
 class objPos
 {
     public:
-        int x;
-        int y;
-        char symbol;
+        int x;  // x-coordinate of the position
+        int y;  // y-coordinate of the position
+        char symbol;  // ASCII symbol representing the position
 
         objPos();
         objPos(objPos &o); // copy constructor
