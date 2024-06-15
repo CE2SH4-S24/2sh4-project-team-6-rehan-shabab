@@ -1,9 +1,9 @@
-#ifndef PLAYER_H  // Include guard to prevent multiple inclusions of this header file
+#ifndef PLAYER_H  
 #define PLAYER_H
 
-#include "GameMechs.h"  // Include the GameMechs class header
-#include "objPos.h"  // Include the objPos class header
-#include "objPosArrayList.h"  // Include the objPosArrayList class header
+#include "GameMechs.h"  
+#include "objPos.h" 
+#include "objPosArrayList.h"  
 
 class GameMechs;  // Forward declaration of the GameMechs class
 

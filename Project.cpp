@@ -105,6 +105,7 @@ void RunLogic(void)
     myGM->clearInput();  // Clear the input buffer
 }
 
+
 void DrawScreen(void)
 {
     MacUILib_clearScreen();  // Clear the screen

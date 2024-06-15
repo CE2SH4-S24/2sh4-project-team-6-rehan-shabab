@@ -1,24 +1,24 @@
 #include "Food.h"
-#include <cstdlib>  
-#include <ctime>    
+#include <cstdlib>  // Includes the standard library for random number generation
+#include <ctime>    // Includes the standard library for time functions
 
 // Constructor for the Food class, initializing the food list and seeding the random number generator
 Food::Food(GameMechs* thisGMRef) {
     gameMechsRef = thisGMRef;  // Store the reference to the GameMechs object
-    foodList = new objPosArrayList();  // Create a new objPosArrayList to store food items
+    foodBucket = new objPosArrayList();  // Create a new objPosArrayList to store food items on the heap
     srand(time(nullptr));  // Seed the random number generator with the current time
 }
 
 // Destructor for the Food class, cleaning up the dynamically allocated food list
 Food::~Food() {
-    delete foodList;  // Delete the objPosArrayList to free the allocated memory
+    delete foodBucket;  // Delete the objPosArrayList to free the allocated memory
 }
 
 // Method to generate multiple food items on the game board, avoiding collision with the player
 void Food::generateFood(objPosArrayList* playerPosList) {
     // Clear all previous food items from the food list
-    while (foodList->getSize() > 0) {
-        foodList->removeTail();  // Remove the last element in the food list
+    while (foodBucket->getSize() > 0) {
+        foodBucket->removeTail();  // Remove the last element in the food list
     }
 
     // Generate 5 food items
@@ -49,16 +49,16 @@ void Food::generateFood(objPosArrayList* playerPosList) {
         newFood.symbol = (i == 0) ? 'S' : 'o';  // The first food item is special
 
         // Add the new food item to the food list
-        foodList->insertTail(newFood);
+        foodBucket->insertTail(newFood);
     }
 }
 
 // Method to get the position of a food item by index
 void Food::getFoodPos(objPos &returnPos, int index) {
-    foodList->getElement(returnPos, index);  // Retrieve the food item at the specified index and store it in returnPos
+    foodBucket->getElement(returnPos, index);  // Retrieve the food item at the specified index and store it in returnPos
 }
 
 // Method to get the count of food items currently in the food list
 int Food::getFoodCount() {
-    return foodList->getSize();  // Return the number of food items in the food list
+    return foodBucket->getSize();  // Return the number of food items in the food list
 }

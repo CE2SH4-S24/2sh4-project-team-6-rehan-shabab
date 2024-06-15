@@ -6,7 +6,7 @@
 
 class Food {
 private:
-    objPosArrayList* foodList;  // List to store multiple food items
+    objPosArrayList* foodBucket;  // Food Bucket list member on the heap
     GameMechs* gameMechsRef;  // Reference to the GameMechs object
 
 public:
