@@ -13,14 +13,6 @@ Group Member 1 Information:
 
 Name: [Ashraf, Shabab]
 
-MacID: [ashras16]
-
-Student No.: [400467458]
-
 Group Member 2 Information:
 
 Name: [Abbasi Rehan]
-
-MacID: [abbasr9]
-
-Student No.: [400393904]
