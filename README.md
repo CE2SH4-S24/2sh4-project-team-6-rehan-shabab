@@ -7,7 +7,7 @@ You must watch the Project briefing and other supporting videos, and read throug
 
 Provide the information about your group below:
 
-Group Number: [Provide the group number assigned by the course instructor here]
+Group Number: [6]
 
 Group Member 1 Information:
 
